@@ -2,7 +2,7 @@ name: Run Trend Bot Daily
 
 on:
   schedule:
-    - cron: '30 1 * * *'  # Runs at 7:00 AM IST (1:30 UTC)
+    - cron: '30 1 * * *'  # 7:00 AM IST
   workflow_dispatch:
 
 jobs:
@@ -12,6 +12,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Debug: show project structure
+        run: ls -la
 
       - name: Setup Node
         uses: actions/setup-node@v3
