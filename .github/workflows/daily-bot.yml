@@ -19,7 +19,7 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: cd trenwise_frontend
+        run: cd trenwise_backend
              npm install
 
       - name: Run bot
@@ -37,5 +37,5 @@ jobs:
 
 
 
-        run: cd trenwise_frontend
+        run: cd trenwise_backend
             node bot.js
