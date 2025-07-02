@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { Search, User, ChevronLeft, ChevronRight } from 'lucide-react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 const FootballBlogPage = () => {
   const router = useRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -42,7 +43,7 @@ const FootballBlogPage = () => {
 
   // Auto-slide functionality
   useEffect(() => {
-    axios.get('http://localhost:5000/api/article/recent') // calling your own API route
+    axios.get(`${baseURL}/api/article/recent`) // calling your own API route
       .then((res) => setRecentBlogs(res.data))
       .catch((err) => console.error(err));
   }, []);
@@ -51,7 +52,7 @@ const FootballBlogPage = () => {
   async function fetchtoppicks(){
   try{
 
-    const res = await axios.get('http://localhost:5000/api/article/toppicks')
+    const res = await axios.get(`${baseURL}/api/article/toppicks`)
     if(!res){
       console.log('unable to get response ')
     }
@@ -67,7 +68,7 @@ const FootballBlogPage = () => {
   }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/article/trending') // calling your own API route
+    axios.get(`${baseURL}/api/article/trending`) // calling your own API route
       .then((res) => setTrendingPosts(res.data))
       .catch((err) => console.error(err));
   }, []);
@@ -101,7 +102,7 @@ const FootballBlogPage = () => {
   // Search logic separated for useEffect and form
   const performSearch = async (query) => {
     try {
-      const res = await axios.post('http://localhost:5000/api/article/search', { query });
+      const res = await axios.post(`${baseURL}/api/article/search`, { query });
       setTopPicks(res.data);
       setCurrentSlide(0); // Reset slider to first result
     } catch (err) {

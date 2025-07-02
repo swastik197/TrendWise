@@ -4,6 +4,7 @@ import { Calendar, Clock, Tag, User, MessageCircle, Heart, Share2, ChevronLeft }
 import { use } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const BlogDetailPage = ({ params }) => {
   const { slug } = use(params);
@@ -16,7 +17,7 @@ const BlogDetailPage = ({ params }) => {
   const [bookmarked, setBookmarked] = useState(false);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/article/details/${slug}`)
+    axios.get(`${baseURL}/api/article/details/${slug}`)
       .then((res) => setBlogData(res.data))
       .catch((err) => console.error(err));
   }, [slug]);
@@ -86,12 +87,12 @@ const BlogDetailPage = ({ params }) => {
     e.preventDefault();
     if (newComment.trim() && authorName.trim()) {
       try {
-        const res = await axios.post(`http://localhost:5000/api/article/update/comment/${slug}`, {
+        const res = await axios.post(`${baseURL}/api/article/update/comment/${slug}`, {
           author: authorName,
           comment: newComment,
         });
         // Refetch the blog data to get updated comments
-        const updatedBlog = await axios.get(`http://localhost:5000/api/article/details/${slug}`);
+        const updatedBlog = await axios.get(`${baseURL}/api/article/details/${slug}`);
         setBlogData(updatedBlog.data);
         setNewComment('');
         setAuthorName('');
@@ -103,7 +104,7 @@ const BlogDetailPage = ({ params }) => {
 
   const handleLike = async () => {
     try {
-      const res = await axios.post(`http://localhost:5000/api/article/update/like/${slug}`);
+      const res = await axios.post(`${baseURL}/api/article/update/like/${slug}`);
       setLiked(!liked);
       setBlogData(prev => ({
         ...prev,
