@@ -19,7 +19,8 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: npm install
+        run: cd trenwise_frontend
+             npm install
 
       - name: Run bot
         env:
