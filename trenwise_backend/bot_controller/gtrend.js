@@ -28,7 +28,7 @@ async function fetchGoogleTrends() {
 
   const trends = await page.evaluate(() => {
     const items = document.querySelectorAll('div.mZ3RIc');
-    return Array.from(items).slice(0, 10).map(el => el.innerText.trim());
+    return Array.from(items).slice(0, 5).map(el => el.innerText.trim());
   });
 
   // Debug: print number of elements found
