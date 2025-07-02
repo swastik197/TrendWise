@@ -3,7 +3,8 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
 
 async function fetchGoogleTrends() {
-  const browser = await puppeteer.launch({ headless: true }); // Set to true to hide browser window
+  const browser = await puppeteer.launch({ headless: true,
+       args: ['--no-sandbox', '--disable-setuid-sandbox'] }); // Set to true to hide browser window
   const page = await browser.newPage();
 
   // Set a user agent to reduce bot detection
