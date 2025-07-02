@@ -3,7 +3,7 @@ name: Run Trend Bot Daily
 on:
   schedule:
     - cron: '30 1 * * *'  # Runs at 7:00 AM IST (1:30 UTC)
-  workflow_dispatch:       # Allows manual run from GitHub UI
+  workflow_dispatch:
 
 jobs:
   run-bot:
@@ -19,8 +19,9 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: cd trenwise_backend
-             npm install
+        run: |
+          cd trenwise_backend
+          npm install
 
       - name: Run bot
         env:
@@ -32,10 +33,7 @@ jobs:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           GOOGLE_CSE_ID: ${{ secrets.GOOGLE_CSE_ID }}
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        run: |
+          cd trenwise_backend
+          node bot.js
 
-
-
-
-
-        run: cd trenwise_backend
-            node bot.js
